@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^2.12.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
+    "react-muscle-highlighter": "^1.2.0",
     "react-redux": "^9.3.0"
   },
   "devDependencies": {

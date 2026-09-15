@@ -21,9 +21,14 @@ const Exercises = () => {
     const [newName, setNewName] = useState("");
 
     const allExercises = [...customExercises, ...exercises, ...apiExercises];
-    const visibleExercises = allExercises.filter((exercise) =>
-    exercise.name.toLowerCase().includes(search.toLowerCase())
-);
+    const visibleExercises =
+    search.trim() === ""
+        ? []
+        : allExercises
+              .filter((exercise) =>
+                  exercise.name.toLowerCase().includes(search.toLowerCase())
+              )
+              .slice(0, 20);
     
     useEffect(() => {
         localStorage.setItem("customExercises", JSON.stringify(customExercises));

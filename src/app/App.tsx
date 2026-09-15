@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Exercises from "../features/exercises/Exercises";
+
 import Home from "../features/home/Home";
 import Profile from "../features/profile/Profile";
 import { useAppSelector } from "./hooks";
@@ -8,11 +8,11 @@ import Schedules from "../features/workout/Schedules";
 
 export default function App() {
     const [tab, setTab] = useState("workout")
-    const sets = useAppSelector((state) => state.workout.sets);
+    const scheduleState = useAppSelector((state) => state.schedules);
 
-    useEffect(() => {
-        localStorage.setItem("sets", JSON.stringify(sets));
-    }, [sets]);
+useEffect(() => {
+    localStorage.setItem("schedules", JSON.stringify(scheduleState));
+}, [scheduleState]);
 
     return (
         <main className="p-app">
@@ -20,7 +20,6 @@ export default function App() {
         <div className="p-app__content">
             {tab === "home" && <Home />}
             {tab === "workout" && <Schedules />}
-            {tab === "workout" && <Exercises />}
             {tab === "profile" && <Profile />}
             </div>
             <nav className="s-tab-bar">
