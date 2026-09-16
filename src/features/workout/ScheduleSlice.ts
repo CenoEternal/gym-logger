@@ -5,11 +5,6 @@ type Schedule = {
     name: string;
 };
 
-type ScheduleState = {
-    schedules: Schedule[];
-    workouts: Workout[];
-};
-
 type LoggedSet = {
     id: number;
     kg: number;
@@ -30,12 +25,30 @@ type Workout = {
     exercises: WorkoutExercise[];
 };
 
+type DayLog = {
+    id: string;
+    date: string;
+    workoutName: string;
+    exercises: WorkoutExercise[];
+};
+
+type ScheduleState = {
+    schedules: Schedule[];
+    workouts: Workout[];
+    logs: DayLog[];
+};
+
 const loadState = (): ScheduleState => {
     const saved = localStorage.getItem("schedules");
     if (!saved) {
-        return { schedules: [], workouts: [] };
+        return { schedules: [], workouts: [], logs: [] };
     }
-    return JSON.parse(saved);
+    const parsed = JSON.parse(saved);
+    return {
+        schedules: parsed.schedules ?? [],
+        workouts: parsed.workouts ?? [],
+        logs: parsed.logs ?? [],
+    };
 };
 
 const initialState: ScheduleState = loadState();
@@ -70,6 +83,26 @@ const scheduleSlice = createSlice({
                 );
             }
         },
+        FinishWorkout: (state, action) => {
+            const workout = state.workouts.find((w) => w.id === action.payload);
+            if (!workout) {
+                return;
+            }
+            const today = new Date().toLocaleDateString("en-CA");
+            state.logs.push({
+                id: String(Date.now()),
+                date: today,
+                workoutName: workout.name,
+                exercises: workout.exercises.map((e) => ({
+                    ...e,
+                    sets: [...e.sets],
+                })),
+            });
+            workout.exercises.forEach((e) => {
+                e.sets = [];
+            });
+        },
+        
         AddSetToExercise: (state, action) => {
             const workout = state.workouts.find((w) => w.id === action.payload.workoutId);
             const exercise = workout?.exercises.find((e) => e.exerciseId === action.payload.exerciseId);
@@ -87,5 +120,5 @@ const scheduleSlice = createSlice({
     },
 });
 
-export const { CreateSchedule, DeleteSchedule, CreateWorkout, DeleteWorkout, AddExerciseToWorkout, RemoveExerciseFromWorkout, AddSetToExercise, RemoveSetFromExercise } = scheduleSlice.actions;
+export const { CreateSchedule, DeleteSchedule, CreateWorkout, DeleteWorkout, AddExerciseToWorkout, RemoveExerciseFromWorkout, AddSetToExercise, RemoveSetFromExercise, FinishWorkout } = scheduleSlice.actions;
 export default scheduleSlice.reducer;

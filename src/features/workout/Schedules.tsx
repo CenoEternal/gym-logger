@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { CreateSchedule, DeleteSchedule, CreateWorkout, DeleteWorkout } from "./ScheduleSlice";
 import WorkoutDetail from "./WorkoutDetail";
+import Logbook from "./Logbook";
 
 const Schedules = () => {
     const dispatch = useAppDispatch();
@@ -10,6 +11,7 @@ const Schedules = () => {
     const [openScheduleId, setOpenScheduleId] = useState<string | null>(null);
     const [newWorkoutName, setNewWorkoutName] = useState("");
     const [openWorkoutId, setOpenWorkoutId] = useState<string | null>(null);
+    const [pane, setPane] = useState("logbook");
     const workouts = useAppSelector((state) => state.schedules.workouts);
     if (openWorkoutId) {
         return <WorkoutDetail workoutId={openWorkoutId} onClose={() => setOpenWorkoutId(null)} />;
@@ -73,6 +75,25 @@ const Schedules = () => {
 
     return (
         <div>
+            <div className="c-pane">
+                <button
+                    type="button"
+                    className={`c-pane__button${pane === "logbook" ? " c-pane__button--active" : ""}`}
+                    onClick={() => setPane("logbook")}
+                >
+                    Logboek
+                </button>
+                <button
+                    type="button"
+                    className={`c-pane__button${pane === "schedules" ? " c-pane__button--active" : ""}`}
+                    onClick={() => setPane("schedules")}
+                >
+                    Schema's
+                </button>
+            </div>
+            {pane === "logbook" && <Logbook />}
+            {pane === "schedules" && (
+            <>
             <h2>Schedules</h2>
 
             <label htmlFor="new-schedule">Nieuwe Schema</label>
@@ -94,6 +115,8 @@ const Schedules = () => {
                     >Vernietigen</button>
                 </div>
             ))}
+            </>
+            )}
         </div>
     );
 };

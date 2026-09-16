@@ -1,5 +1,5 @@
 import { useEffect,useState } from "react";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { AddSetToExercise, RemoveSetFromExercise, RemoveExerciseFromWorkout } from "./ScheduleSlice";
 
 type LoggedSet = {
@@ -13,14 +13,23 @@ type props = {
     exerciseId: string;
     name: string;
     sets: LoggedSet[];
+    onOpenDetail: () => void;
 };
 
-const WorkoutExerciseRow = ({ workoutId, exerciseId, name, sets }: props) => {
+const WorkoutExerciseRow = ({ workoutId, exerciseId, name, sets, onOpenDetail }: props) => {
     const dispatch = useAppDispatch();
-    const lastSet = sets[sets.length - 1];
+    const logs = useAppSelector((state) => state.schedules.logs);
+    const lastLogged = [...logs]
+    .reverse()
+    .flatMap((log) => log.exercises)
+    .find((e) => e.exerciseId === exerciseId)
+    ?.sets.at(-1);
+    const lastSet = sets[sets.length - 1] ?? lastLogged;
     const [kg, setKg] = useState(lastSet ? String(lastSet.kg) : "");
     const [reps, setReps] = useState(lastSet ? String(lastSet.reps) : "");
     const [restSeconds, setRestSeconds] = useState(0);
+
+    
 
     useEffect(() => {
         if (restSeconds <= 0) {
@@ -32,20 +41,29 @@ const WorkoutExerciseRow = ({ workoutId, exerciseId, name, sets }: props) => {
 
     return (
         <div className="c-logged">
-            <h4>{name}</h4>
+            <button type="button" className="c-button c-button--ghost" onClick={onOpenDetail}>
+                {name}
+            </button>
 
             {sets.map((set, index) => (
                 <div key={set.id} className="c-logged__set">
-                    <p>Set {index + 1}: {set.kg} kg x {set.reps} reps</p>
+                    <button type="button" className="c-button c-button--ghost" onClick={onOpenDetail}>
+                        Set {index + 1}: {set.kg} kg x {set.reps} reps
+                    </button>
                     <button type="button" className="c-button c-button--ghost" onClick={() => dispatch(RemoveSetFromExercise({ workoutId, exerciseId, setId: set.id }))}>
                         Weg
                     </button>
                     </div>
 
             ))}
-            {restSeconds > 0 && (
-    <p>Rust: {restSeconds}s</p>
-)}
+    {restSeconds > 0 && (
+        <div className="c-timer">
+        <p className="c-timer__value">{restSeconds}</p>
+        <div className="c-timer__track">
+        <div className="c-timer__bar" style={{ width: `${(restSeconds / 90) * 100}%`}}/>
+        </div>
+        </div>
+    )}
        <input className="c-input" type="text" value={kg} onChange={(e) => setKg(e.target.value)} placeholder="gewicht" />
        <input className="c-input" type="text" value={reps} onChange={(e) => setReps(e.target.value)} placeholder="reps" />
 

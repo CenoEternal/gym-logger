@@ -5,13 +5,18 @@ import { muscleMap } from "./muscleMap";
 // hoe meer getrained hoe donkerder
 const INTENSITY_COLORS = ["#ffd9c7", "#ffab84", "#ff6b35", "#a8340c"];
 
-const BodyMap = () => {
-    const workouts = useAppSelector((state) => state.schedules.workouts);
+type Props = {
+    date: string;
+};
+
+const BodyMap = ({ date }: Props) => {
+    const logs = useAppSelector((state) => state.schedules.logs);
+    const dayLogs = logs.filter((log) => log.date === date);
 
     const volumePerMuscle: Record<string, number> = {};
 
-    workouts.forEach((workout) => {
-        workout.exercises.forEach((exercise) => {
+    dayLogs.forEach((log) => {
+        log.exercises.forEach((exercise) => {
             const volume = exercise.sets.reduce((sum, set) => sum + set.kg * set.reps, 0);
             exercise.muscle.forEach((name) => {
                 const slug = muscleMap[name];

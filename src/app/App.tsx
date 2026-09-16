@@ -9,10 +9,14 @@ import Schedules from "../features/workout/Schedules";
 export default function App() {
     const [tab, setTab] = useState("workout")
     const scheduleState = useAppSelector((state) => state.schedules);
-
-useEffect(() => {
-    localStorage.setItem("schedules", JSON.stringify(scheduleState));
-}, [scheduleState]);
+    const profileState = useAppSelector((state) => state.profile);
+    useEffect(() => {
+        localStorage.setItem("schedules", JSON.stringify(scheduleState));
+    }, [scheduleState]);
+    
+    useEffect(() => {
+        localStorage.setItem("profile", JSON.stringify(profileState));
+    }, [profileState]);
 
     return (
         <main className="p-app">

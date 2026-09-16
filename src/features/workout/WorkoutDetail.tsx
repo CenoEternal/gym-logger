@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useExerciseCatalog } from "../exercises/useExerciseCatalog";
-import { AddExerciseToWorkout } from "./ScheduleSlice";
 import WorkoutExerciseRow from "./WorkoutExerciseRow";
 import ExerciseDetail from "../exercises/ExerciseDetail";
 import { type Exercise } from "../exercises/getExercises";
+import { AddExerciseToWorkout, FinishWorkout } from "./ScheduleSlice";
 
 type Props = {
     workoutId: string;
@@ -25,9 +25,7 @@ const WorkoutDetail = ({ workoutId, onClose }: Props) => {
                   .filter((e) => e.name.toLowerCase().includes(search.toLowerCase()))
                   .slice(0, 20);
 const [detailExercise, setDetailExercise] = useState<Exercise | null>(null);
-if (detailExercise) {
-    return <ExerciseDetail exercise={detailExercise} onClose={() => setDetailExercise(null)} />;
-}
+const [done, setDone] = useState(false);
                   
     return (
         <div>
@@ -43,6 +41,22 @@ if (detailExercise) {
         exerciseId={exercise.exerciseId}
         name={exercise.name}
         sets={exercise.sets}
+        onOpenDetail={() => {
+            const found = catalog.find((e) => e.id === exercise.exerciseId);
+            if (found) {
+                setDetailExercise(found);
+                return;
+            }
+            setDetailExercise({
+                id: exercise.exerciseId,
+                name: exercise.name,
+                muscle: exercise.muscle,
+                secondaryMuscle: [],
+                equipment: "",
+                instructions: [],
+                images: exercise.images,
+            });
+        }}
     />
 ))}
 
@@ -81,6 +95,22 @@ if (detailExercise) {
                     </button>
                 </div>
             ))}
+            {detailExercise && (
+    <ExerciseDetail exercise={detailExercise} onClose={() => setDetailExercise(null)} />
+)}
+<button
+    type="button"
+    className="c-button c-button--primary"
+    disabled={done}
+    onClick={() => {
+        dispatch(FinishWorkout(workoutId));
+        setDone(true);
+        window.setTimeout(() => onClose(), 900);
+    }}
+>
+    Workout afronden
+</button>
+{done && <div className="c-toast">Opgeslagen</div>}
         </div>
     );
 };
