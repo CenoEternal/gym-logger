@@ -22,3 +22,24 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# Local AI agent / editor config
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+.rules
+.mcp.json
+.cursor/
+.augment/
+.clinerules/
+.devin/
+.idx/
+.kiro/
+.roo/
+.windsurf/
+.github/instructions/
