@@ -6,15 +6,31 @@ A minimal, mobile-first gym workout logger built with React and Redux Toolkit.
 
 > **Note:** the UI is currently in Dutch.
 
+## How it works
+
+Gym Logger organizes your training in four levels:
+
+```
+Schedule            e.g. "PPL"
+└── Workout         e.g. "Push"
+    └── Exercise    e.g. "Barbell Bench Press"
+        └── Details tap an exercise to see its details
+```
+
+1. **Schedules**: your training plan, for example a Push/Pull/Legs (PPL) split.
+2. **Workouts**: the sessions inside a schedule, for example *Push*.
+3. **Exercises**: the exercises in a workout, picked from a searchable catalog. For each exercise you log sets of weight (kg) and reps.
+4. **Exercise details**: tap an exercise to see its details: images, target muscles, equipment and step-by-step instructions.
+
 ## Features
 
-- **Schedules & workouts** – create training schedules, add workouts to them and add exercises to each workout.
-- **Set logging** – log weight (kg) and reps per set, with a 90-second rest timer after each set.
-- **Finish workout** – complete a workout with a "saved" toast confirmation.
-- **Logbook** – browse your training per day with a week strip: total sets, volume (kg), sets per muscle and a highlighted body map.
-- **Exercise catalog** – search exercises from the open [free-exercise-db](https://github.com/yuhonas/free-exercise-db), with exercise details.
-- **Home stats** – training streak, workouts this week and new personal records.
-- **Profile** – weight, height and gender, with a calculated BMI.
+- **Detailed logging**: log weight (kg) and reps for every set. A 90-second rest timer starts after each set, and a "saved" message confirms when you finish a workout.
+- **See what you've trained**: the logbook shows each day's workouts and exercises, total sets, total volume (kg) and sets per muscle.
+- **Body map**: a body map highlights the muscles you trained on the selected day.
+- **Weekly overview**: browse your logbook week by week with a day-by-day week strip. The Home tab shows how many sessions you did this week and your current training streak in days.
+- **PR tracking**: after a workout, the Home tab shows new personal records, meaning any exercise where you lifted a heavier weight than in your earlier sessions.
+- **Exercise catalog**: search exercises from the open [free-exercise-db](https://github.com/yuhonas/free-exercise-db).
+- **Profile**: store your weight, height and gender, and see your calculated BMI.
 
 ## Stack
 
@@ -38,7 +54,7 @@ npm run preview  # preview the production build
 
 ## Privacy
 
-All your data (schedules, logged sets, profile) is stored only in your browser's `localStorage`. There is no backend and no account; nothing is sent anywhere. The only network request is fetching the public exercise list.
+All your data (schedules, logged sets, profile) is stored only in your browser's `localStorage`. There is no backend and no account, and nothing is sent anywhere. The only network requests load the public exercise list and its images.
 
 ## Exercise data
 
