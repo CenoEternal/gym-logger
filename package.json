@@ -1,7 +1,27 @@
 {
   "name": "gym-logger",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "Minimal gym workout logger built with React and Redux Toolkit.",
+  "keywords": [
+    "gym",
+    "workout",
+    "fitness",
+    "logger",
+    "react",
+    "redux-toolkit",
+    "vite",
+    "typescript"
+  ],
+  "license": "MIT",
+  "author": "Berke Yücedag",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CenoEternal/gym-logger.git"
+  },
+  "homepage": "https://github.com/CenoEternal/gym-logger#readme",
+  "bugs": {
+    "url": "https://github.com/CenoEternal/gym-logger/issues"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
