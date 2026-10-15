@@ -1,6 +1,6 @@
 # Gym Logger
 
-> **Note:** the UI is currently in Dutch. It is designed mobile-first for Android and tested on a Samsung Galaxy S23 Ultra. Screenshots may differ slightly from the latest version.
+> **Note:** the UI is currently in Dutch. It is designed mobile-first for Android and tested on a Samsung Galaxy S23 Ultra. It also works on desktop browsers, but the layout is optimized for phones. Screenshots may differ slightly from the latest version.
 
 A minimal, mobile-first gym workout logger built with React and Redux Toolkit.
 
