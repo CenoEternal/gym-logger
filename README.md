@@ -1,16 +1,15 @@
 # Gym Logger
 
-> **Note:** the UI is currently in Dutch.
+> **Note:** the UI is currently in Dutch. It is designed mobile-first for Android and tested on a Samsung Galaxy S23 Ultra. Screenshots may differ slightly from the latest version.
 
 A minimal, mobile-first gym workout logger built with React and Redux Toolkit.
 
-Some screenshots
-quick screenshot of the weekview.
-![Gym Logger screenshot](docs/screenshot.png)
+## Screenshots
 
-
-
-
+<p>
+  <img src="docs/screenshot.png" alt="Logbook with week view and body map" width="280">
+  <img src="docs/exercise-details.png" alt="Exercise details" width="280">
+</p>
 
 ## How it works
 
