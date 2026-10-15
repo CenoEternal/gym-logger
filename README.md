@@ -1,10 +1,16 @@
 # Gym Logger
 
+> **Note:** the UI is currently in Dutch.
+
 A minimal, mobile-first gym workout logger built with React and Redux Toolkit.
 
+Some screenshots
+quick screenshot of the weekview.
 ![Gym Logger screenshot](docs/screenshot.png)
 
-> **Note:** the UI is currently in Dutch.
+
+
+
 
 ## How it works
 
