@@ -1,32 +1,54 @@
-# React + TypeScript + Vite
+# Gym Logger
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A minimal, mobile-first gym workout logger built with React and Redux Toolkit.
 
-Currently, two official plugins are available:
+![Gym Logger screenshot](docs/screenshot.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+> **Note:** the UI is currently in Dutch.
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Schedules & workouts** – create training schedules, add workouts to them and add exercises to each workout.
+- **Set logging** – log weight (kg) and reps per set, with a 90-second rest timer after each set.
+- **Finish workout** – complete a workout with a "saved" toast confirmation.
+- **Logbook** – browse your training per day with a week strip: total sets, volume (kg), sets per muscle and a highlighted body map.
+- **Exercise catalog** – search exercises from the open [free-exercise-db](https://github.com/yuhonas/free-exercise-db), with exercise details.
+- **Home stats** – training streak, workouts this week and new personal records.
+- **Profile** – weight, height and gender, with a calculated BMI.
 
-## Expanding the Oxlint configuration
+## Stack
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+- [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vite.dev/)
+- [Redux Toolkit](https://redux-toolkit.js.org/) + React Redux
+- [Sass (SCSS)](https://sass-lang.com/)
+- [react-muscle-highlighter](https://www.npmjs.com/package/react-muscle-highlighter) for the body map
+- [Oxlint](https://oxc.rs/) for linting
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+## Getting started
+
+Requires Node.js 20+.
+
+```bash
+npm install
+npm run dev      # start the dev server
+npm run build    # type-check and build for production
+npm run preview  # preview the production build
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Privacy
+
+All your data (schedules, logged sets, profile) is stored only in your browser's `localStorage`. There is no backend and no account; nothing is sent anywhere. The only network request is fetching the public exercise list.
+
+## Exercise data
+
+Exercise data comes from [yuhonas/free-exercise-db](https://github.com/yuhonas/free-exercise-db), loaded from
+`https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json`. Many thanks to its maintainers.
+
+## Contributing
+
+Issues and pull requests are welcome. Please keep changes small and focused, and make sure `npm run build` and `npm run lint` pass.
+
+## License
+
+[MIT](LICENSE) © 2026 Berke Yücedag
